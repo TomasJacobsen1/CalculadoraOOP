@@ -2,42 +2,89 @@
 
 namespace calculadoraOOP
 {
-    public enum OP {sum='+', rest='-', div='/', mult='*'}
+    
 
     class Program
     {
         static void Main(string[] args)
         {
+            
             double num1;
             double num2;
-
-
-            Console.WriteLine("Ingrese un numero");
-            num1 = double.Parse(Console.ReadLine());
-            Console.WriteLine("Valor ingresado incorrecto");
-            Console.WriteLine("Ingrese un operador");
-            char x = char.Parse(Console.ReadLine());
-            OP op = (OP)x;
-            Console.WriteLine("Ingrese otro numero");
-            num2 = double.Parse(Console.ReadLine());
-
-            switch (op){
-                case OP.sum:
-                    Console.WriteLine(Sumar(num1, num2));
+            char op;
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Ingrese un numero");
+                    num1 = double.Parse(Console.ReadLine());
                     break;
-                case OP.rest:
-                    Console.WriteLine(Restar(num1, num2));
-                    break;
-                case OP.div:
-                    Console.WriteLine(Dividir(num1, num2));
-                    break;
-                case OP.mult:
-                    Console.WriteLine(Mulitplicar(num1, num2));
-                    break;
-                default:
-                    Console.WriteLine("Operador incorecto");
-                    break;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("El valor ingresado incorrecto");
+                }
             }
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Ingrese un operador");
+                    op = char.Parse(Console.ReadLine());
+                    
+                    if (op != '+' && op != '-' && op != '*' && op != '/')
+                    {
+                        Console.WriteLine("El operador ingresado es desconocido");
+                        continue;
+                    }
+                    else { break; }
+                    
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("El valor ingresado incorrecto");
+                }
+            }
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Ingrese otro numero");
+                    num2 = double.Parse(Console.ReadLine());
+                    break;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("El valor ingresado incorrecto");
+                }
+            }
+
+            if (op == '+')
+            {
+                Console.WriteLine(Sumar(num1, num2));
+            }
+            else if (op == '-')
+            {
+                Console.WriteLine(Restar(num1, num2));
+            }
+            else if (op == '*')
+            {
+                Console.WriteLine(Mulitplicar(num1, num2));
+            }
+            else if (op == '/')
+            {
+                if (num2 != 0)
+                {
+                    Console.WriteLine(Dividir(num1, num2));
+                }
+                else
+                {
+                    Console.WriteLine("Imposible Dividir por cero");
+                    //throw new DivideByZeroException();
+                }
+            }
+            
+            
 
         }
 
@@ -57,7 +104,9 @@ namespace calculadoraOOP
         {
             return X * Y;
         }
+
+
+
     }
 
-    
 }
