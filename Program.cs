@@ -2,16 +2,25 @@
 
 namespace calculadoraOOP
 {
-    
-
     class Program
     {
         static void Main(string[] args)
         {
-            
+
             double num1;
             double num2;
             char op;
+            Suma sumar = new Suma();
+            Resta restar = new Resta();
+            Division dividir = new Division();
+            Multiplicacion multiplicar = new Multiplicacion();
+
+            IOperacion[] aOperadores = new IOperacion[4];
+            aOperadores[0] = sumar;
+            aOperadores[1] = restar;
+            aOperadores[2] = dividir;
+            aOperadores[3] = multiplicar;
+
             while (true)
             {
                 try
@@ -38,7 +47,7 @@ namespace calculadoraOOP
                         continue;
                     }
                     else { break; }
-                    
+
                 }
                 catch (Exception e)
                 {
@@ -59,7 +68,26 @@ namespace calculadoraOOP
                 }
             }
 
-            if (op == '+')
+            OPERADORES OP = (OPERADORES)op;
+
+            switch (OP)
+            {
+                case OPERADORES.sum :
+                    Console.WriteLine(aOperadores[0].Ejecutar(num1, num2));
+                    break;
+                case OPERADORES.rest:
+                    Console.WriteLine(aOperadores[1].Ejecutar(num1, num2));
+                    break;
+                case OPERADORES.div:
+                    Console.WriteLine(aOperadores[2].Ejecutar(num1, num2));
+                    break;
+                case OPERADORES.mult:
+                    Console.WriteLine(aOperadores[3].Ejecutar(num1, num2));
+                    break;
+
+            }
+
+            /*if (op == '+')
             {
                 Console.WriteLine(Sumar(num1, num2));
             }
@@ -80,33 +108,11 @@ namespace calculadoraOOP
                 else
                 {
                     Console.WriteLine("Imposible Dividir por cero");
-                    //throw new DivideByZeroException();
                 }
-            }
-            
-            
-
+            }*/
         }
-
-        public static double Sumar(double X, double Y)
-        {
-            return X + Y;
-        }
-        public static double Restar(double X, double Y)
-        {
-            return X - Y;
-        }
-        public static double Dividir(double X, double Y)
-        {
-            return X / Y;
-        }
-        public static double Mulitplicar(double X, double Y)
-        {
-            return X * Y;
-        }
-
-
-
     }
+    public enum OPERADORES {sum='+' , rest='-' , div='/' , mult='*' }
+
 
 }
